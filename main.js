@@ -1,6 +1,7 @@
 //global variables
 let canMoveTarget = true;
 let moveCount = 0;
+
 //set up the board into its initial state
 init()
 
