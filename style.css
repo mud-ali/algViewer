@@ -1,3 +1,18 @@
+/* Base stuff */
+:root {
+  --bg-color-primary: #333333;
+  --color-primary: #ffffff;
+  --unused-bg: #777;
+  --used-bg: #f34040;
+  --center-bg: #320be0;
+  --start-bg: #fad42d;
+}
+
+body {
+    background-color: var(--bg-color-primary);
+    color: var(--color-primary);
+}
+
 /* DOM Objects */
 #can {
     position: absolute;
@@ -23,11 +38,17 @@
 
 /* states */
 .unused {
-    background-color: #777777;
+    background-color: var(--unused-bg);
 }
 .used {
-    background-color: #f34040;
+    background-color: var(--used-bg);
 }
 .center {
-    background-color: #320be0;
+    background-color: var(--center-bg);
+}
+.wall {
+    background-color: #000;
+}
+.start {
+    background-color: var(--start-bg);
 }
