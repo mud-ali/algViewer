@@ -22,8 +22,8 @@ body {
     height: 100 - 12.7vh;
     margin: 0;
     padding: 0;
-    border: 3px solid black;
     overflow: hidden;
+    text-align: center;
     /* background-color: rgb(236, 212, 212); */
 }
 .grid-square {
