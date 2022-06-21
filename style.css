@@ -1,0 +1,33 @@
+/* DOM Objects */
+#can {
+    position: absolute;
+    top: 12.7vh;
+    left: 5vw;
+    width: 90vw;
+    height: 100 - 12.7vh;
+    margin: 0;
+    padding: 0;
+    border: 3px solid black;
+    overflow: hidden;
+    /* background-color: rgb(236, 212, 212); */
+}
+.grid-square {
+    position: relative;
+    display: inline-block;
+    width: 2.9%;
+    aspect-ratio: 1;
+    margin: 0.1%;
+    border: 1px solid #fff;
+}
+
+
+/* states */
+.unused {
+    background-color: #777777;
+}
+.used {
+    background-color: #f34040;
+}
+.center {
+    background-color: #320be0;
+}
