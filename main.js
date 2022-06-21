@@ -1,10 +1,67 @@
+//global variables
+let canMoveTarget = true;
+let moveCount = 0;
 //set up the board into its initial state
 init()
 
+//Testing with wasd momvement
+// TODO: Replace with automated movement
+document.body.addEventListener("keydown", function(e) {
+    if (e.key == "w") {
+        move(-1, "up");
+    } else if (e.key == "s") {
+        move(1, "up");
+    } else if (e.key == "a") {
+        move(-1, "right");
+    } else if (e.key == "d") {
+        move(1, "right");
+    }
+});
 
 
+function move(amt, dir) {
+    //get & parse the current position of the piece
+    let currentPosition = getCurrentPosition();
+    
+    let x = parseInt(currentPosition[0]);
+    let y = parseInt(currentPosition[1]);
+
+    console.log(x,y);
+
+    if (dir == "up") {
+        y += amt;
+    } else if (dir == "right") {
+        x += amt;
+    }
+
+    // actually move the square
+
+    let newSpot = document.getElementsByClassName(`${x}-${y}`)[0];
+    
+    console.log(x,y,newSpot);
+    if (newSpot && !newSpot.classList.contains("wall")) {
+        document.getElementsByClassName('start')[0].classList.remove('start');
+        newSpot?.classList.add("start");
+        moveCount++;
+    }
+    //TODO: else play a thunk noise
+
+    if (newSpot.classList.contains("center")) {
+        alert(`yay won with ${moveCount} moves`);
+        history.go(0);    
+    }
+}
 
 
+//helper functions
+function getCurrentPosition() {
+    let piece = document.getElementsByClassName("start")[0];
+    let currentPosition = piece.classList[2].split("-");
+
+    return currentPosition;
+}
+
+//setup functions
 function init() {
     const canvas = document.getElementById("can");
     const GRID_WIDTH = 29;
@@ -24,7 +81,6 @@ function init() {
             //allow the target "center" to be moved
             //https://stackoverflow.com/questions/10000083/javascript-event-handler-with-parameters
             d.addEventListener("click", (d)=>{
-                console.log(d);
                 moveCenter(d.target);
             });
             
@@ -38,24 +94,26 @@ function init() {
                 d.classList.add("wall");
 
             //remove the event listener when the enter key is pressed
-            document.body.addEventListener("keydown", function(e) {
-                if (e.key == "Enter") {
-                    d.removeEventListener("click", moveCenter);
-                }
-            });
         }
-
+        
         let br = document.createElement("br");
         canvas.appendChild(br);
     }
+
+    document.body.addEventListener("keydown", function(e) {
+        if (e.key == "Enter") {
+            canMoveTarget = false;
+        }
+    }, {once : true} );
 }
 function moveCenter(d) {
-    if (d.classList.contains("center") || d.classList.contains("start") || d.classList.contains("wall")) {
-        d.classList.remove("center");
-    } else {
-        Array.from(document.getElementsByClassName("center")).forEach(box => {
-            box.classList.remove("center");
-        });
-        d.classList.add("center");
-    }
+    if ( d.classList.contains("wall") 
+    || d.classList.contains("start")
+    || !canMoveTarget )
+        return;
+
+    Array.from(document.getElementsByClassName("center")).forEach(box => {
+        box.classList.remove("center");
+    });
+    d.classList.add("center");
 }
