@@ -19,19 +19,18 @@ body {
     top: 12.7vh;
     left: 5vw;
     width: 90vw;
-    height: 100 - 12.7vh;
     margin: 0;
     padding: 0;
     overflow: hidden;
     text-align: center;
-    /* background-color: rgb(236, 212, 212); */
 }
 .grid-square {
     position: relative;
     display: inline-block;
+    box-sizing: border-box;
     width: 2.9%;
     aspect-ratio: 1;
-    margin: 0.1%;
+    margin: 2px;
     border: 1px solid #fff;
 }
 
@@ -42,6 +41,10 @@ body {
 }
 .used {
     background-color: var(--used-bg);
+    text-align: center;
+    font-size: 200%;
+    vertical-align: bottom;
+    box-sizing: border-box;
 }
 .center {
     background-color: var(--center-bg);

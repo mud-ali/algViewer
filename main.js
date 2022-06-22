@@ -1,12 +1,13 @@
-//global variables
+// global variables
 let canMoveTarget = true;
 let moveCount = 0;
 
-//set up the board into its initial state
+// set up the board into its initial state
 init()
 
-//Testing with wasd momvement
+// Testing with wasd momvement
 // TODO: Replace with automated movement
+// movement event listeners
 document.body.addEventListener("keydown", function(e) {
     if (e.key == "w") {
         move(-1, "up");
@@ -27,26 +28,36 @@ function move(amt, dir) {
     let x = parseInt(currentPosition[0]);
     let y = parseInt(currentPosition[1]);
 
-    console.log(x,y);
-
+    //change the expected x/y values
     if (dir == "up") {
         y += amt;
     } else if (dir == "right") {
         x += amt;
     }
 
-    // actually move the square
-
+    //find the new spot the piece has moved to
     let newSpot = document.getElementsByClassName(`${x}-${y}`)[0];
+    let oldSpot = document.getElementsByClassName('start')[0];
     
-    console.log(x,y,newSpot);
+    
+    //check for walls & outer boundaries
+    //TODO: else play a thunk noise
     if (newSpot && !newSpot.classList.contains("wall")) {
-        document.getElementsByClassName('start')[0].classList.remove('start');
+        
+        oldSpot.classList.add('used');
+        oldSpot.classList.remove('start','unused');
+        oldSpot.innerText = moveCount+1; // TODO: style text
+        
         newSpot?.classList.add("start");
         moveCount++;
     }
-    //TODO: else play a thunk noise
+    
+    if (newSpot.classList.contains("used")) {
+        alert(`you lost after ${moveCount} moves`);
+        history.go(0);
+    }
 
+    //"win" condition
     if (newSpot.classList.contains("center")) {
         alert(`yay won with ${moveCount} moves`);
         history.go(0);    
@@ -76,6 +87,7 @@ function init() {
             d.classList.add("grid-square");
             d.classList.add("unused");
             d.classList.add(`${j}-${i}`);
+            d.innerHTML = "&nbsp;";
             canvas.appendChild(d);
 
 
